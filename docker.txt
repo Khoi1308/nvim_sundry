@@ -52,8 +52,23 @@ Let's now look at how data is persisted in Docker container? When databases and 
 If you would like to persisted data, you would want to map a directory outside the container on the Docker host to a directory inside the container.
  + docker run -v <directory_on_host>:<directory_in_contrianer> <image_name>:<tag>
 
+# DOCKER IMAGES
+Why would you need to create your own image? 
+ - It could either be because you cannot find a component or a service that you want to use as part of your application on Docker hub already, or you & your team decided that the application you're developing will be containerized for ease of shipping and development. 
 
+ - In this case, I'm going to containerize an application a simple web application that I have built using the Python
+First, we need to understand what we are containerizing or what application we are creating an image for? How the application is built? So what by thinking what you might do? If you want to deploy the application manually, we write down the steps required in the right order. I'm creating an image for a simple web application.
 
+If I were to set it up manually, I would start with an OS like Ubuntu, then update the source repositories using the apt commmand, then install TS dependencies, then copy over the source code of my application to a location like /opt folder, and then finally, run the web server. Now that I have the instructions, create a Dockerfile using this. Here's a quick overview of the process of creating your own image.
+ - Create a Docker file named Dockerfile and write down the instructions for setting up your application in it such as installing dependencies, where to copy the source code from and to, what the entrypoint of the application is, etc.
+
+ - Once done, build your image using the Docker buid command and specify the Dockerfile as input as well as a tag name for the image. This will create an image locally on your system.
+  + docker build Dockerfile -t <account_name>/<image_name>
+  + docker push <account_name>/<image_name>
+
+ - To make it available on the Docker Hub register, run the Docker push command an specify the name of the image you just created. 
+
+Let's take a closer look at that Dockerfile.
 
 
 
