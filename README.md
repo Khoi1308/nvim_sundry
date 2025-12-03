@@ -9,4 +9,5 @@ oil.nvim is actually something as you might have by now realized, I'm going in a
 - Treesitter actually generates parses that are kind of easy on errors, they can continue or can continue parsing most of the files, even though parts of it are broken. Furthermore, treesitter can generate incremental parses which is quite important as well, because we don't want to always with each change reparse the whole file, but only the changes that we made and we want to keep all the rest 
 - All of those languages have those grammar files and something that is called queries, we will see that later on and how we can use that and they are supported by freesitter  
 - If you want your system actually to automatically install missing treesitter housers when you opening file, you need the treesitter command line utility as well which you can for example on Mac OS install easily via homebrew
+[Github](https://www.youtube.com/watch?v=E4qXZv34NQQ&t=1835s)
 
