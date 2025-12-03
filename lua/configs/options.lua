@@ -43,11 +43,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight yank",
 })
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { trail = "·", nbsp = "␣" }
-
 -- Disable commandline until it is needed
 opt.cmdheight = 0
