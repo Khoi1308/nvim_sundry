@@ -12,8 +12,8 @@ return {
     -- Useful status updates for LSP.
     { 'j-hui/fidget.nvim', opts = {} },
 
-    -- Allows extra capabilities provided by blink.cmp
-    'saghen/blink.cmp',
+    -- -- Allows extra capabilities provided by blink.cmp
+    -- 'saghen/blink.cmp',
   },
   config = function()
     -- Brief aside: **What is LSP?**
@@ -60,27 +60,27 @@ return {
 
         -- Rename the variable under your cursor.
         --  Most Language Servers support renaming across files, etc.
-        map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+        map('<leader>cn', vim.lsp.buf.rename, '[R]e[n]ame')
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
-        map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+        map('<leader>ca', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
         -- Find references for the word under your cursor.
-        map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        map('<leader>cr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
         -- Jump to the implementation of the word under your cursor.
         --  Useful when your language has ways of declaring types without an actual implementation.
-        map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+        map('<leader>ci', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
         -- Jump to the definition of the word under your cursor.
         --  This is where a variable was first declared, or where a function is defined, etc.
         --  To jump back, press <C-t>.
-        map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+        map('<leader>cd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         --  For example, in C this would take you to the header.
-        map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        map('<leader>cD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
         -- Fuzzy find all the symbols in your current document.
         --  Symbols are things like variables, functions, types, etc.
@@ -88,7 +88,7 @@ return {
 
         -- Fuzzy find all the symbols in your current workspace.
         --  Similar to document symbols, except searches over your entire project.
-        map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
+        map('<leader>W', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
 
         -- Jump to the type of the word under your cursor.
         --  Useful when you're not sure what type a variable is and you want to see
@@ -155,7 +155,7 @@ return {
       severity_sort = true,
       float = { border = 'rounded', source = 'if_many' },
       underline = { severity = vim.diagnostic.severity.ERROR },
-      signs = vim.g.have_nerd_font and {
+      signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = '󰅚 ',
           [vim.diagnostic.severity.WARN] = '󰀪 ',
@@ -182,7 +182,8 @@ return {
     --  By default, Neovim doesn't support everything that is in the LSP specification.
     --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
     --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
-    local capabilities = require('blink.cmp').get_lsp_capabilities()
+    -- local capabilities = require('blink.cmp').get_lsp_capabilities()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -211,15 +212,15 @@ return {
         -- cmd = { ... },
         -- filetypes = { ... },
         -- capabilities = {},
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = 'Replace',
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
-          },
-        },
+        -- settings = {
+        --   Lua = {
+        --     completion = {
+        --       callSnippet = 'Replace',
+        --     },
+        --     -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+        --     -- diagnostics = { disable = { 'missing-fields' } },
+        --   },
+        -- },
       },
     }
 
