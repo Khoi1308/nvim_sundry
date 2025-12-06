@@ -33,6 +33,8 @@ return {
 			["<C-j>"] = { "select_next", "fallback" }, -- DOWN
 			["<DOWN>"] = { "select_next", "fallback" },
 			["<Tab>"] = { "select_and_accept" },
+
+			["<C-n>"] = { "show_signature", "hide_signature", "fallback" },
 		},
 
 		appearance = {
@@ -54,9 +56,6 @@ return {
 
 		signature = {
 			enabled = true,
-			keymap = {
-				["<C-n>"] = { "show_signature", "hide_signature", "fallback" },
-			},
 		},
 		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
 		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,

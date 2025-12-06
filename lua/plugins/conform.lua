@@ -5,6 +5,7 @@ return {
 			lua = { "stylua" },
 			javascript = { "prettierd" },
 			typescript = { "prettierd" },
+			cplus = { "clang-format" },
 		},
 
 		format_on_save = {
