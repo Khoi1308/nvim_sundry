@@ -32,8 +32,6 @@ return {
 
 			["<C-j>"] = { "select_next", "fallback" }, -- DOWN
 			["<DOWN>"] = { "select_next", "fallback" },
-			["<Tab>"] = { "select_and_accept" },
-
 			["<C-n>"] = { "show_signature", "hide_signature", "fallback" },
 		},
 
