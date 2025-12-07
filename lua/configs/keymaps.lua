@@ -1,9 +1,21 @@
-vim.keymap.set("n", "gl", "<cmd>bnext<CR>", { desc = "Next buffer" })
+local keymaps = vim.keymap
 
-vim.keymap.set("n", "gl", function()
+keymaps.set("n", "gl", "<cmd>bnext<CR>", { desc = "Next buffer" })
+
+keymaps.set("n", "gl", function()
 	vim.diagnostic.open_float()
 end, { desc = "Open Diagnostics in Float" })
 
-vim.keymap.set("n", "<leader>cf", function()
+keymaps.set("n", "<leader>cf", function()
 	require("conform").format()
 end, { desc = "Code format" })
+
+-- Navigator windows
+keymaps.set("n", "<leader>sv", "<C-w>v", { desc = "Split windows by vertically" })
+keymaps.set("n", "<leader>sh", "<C-w>s", { desc = "Split windows by horizon" })
+keymaps.set("n", "<leader>wx", ":close<CR>", { desc = "Close windows" })
+
+keymaps.set("n", "<leader>wh", "<C-w>h", { desc = "Go to the left window" })
+keymaps.set("n", "<leader>wl", "<C-w>h", { desc = "Go to the right window" })
+keymaps.set("n", "<leader>wj", "<C-w>j", { desc = "Go to the down window" })
+keymaps.set("n", "<leader>wk", "<C-w>k", { desc = "Go to the up window" })

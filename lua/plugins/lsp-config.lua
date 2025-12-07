@@ -241,6 +241,7 @@ return {
 			"stylua", -- Used to format Lua code
 			"prettierd",
 			"clang-format",
+			"shfmt",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
