@@ -194,7 +194,13 @@ return {
 		--  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
 		-- local capabilities = require('blink.cmp').get_lsp_capabilities()
 		local original_capabilities = vim.lsp.protocol.make_client_capabilities()
+		-- Blink
 		local capabilities = require("blink.cmp").get_lsp_capabilities(original_capabilities)
+		-- Ufo
+		original_capabilities.textDocument.foldingRange = {
+			dynamicRegistration = false,
+			lineFoldingOnly = true,
+		}
 
 		-- Enable the following language servers
 		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.

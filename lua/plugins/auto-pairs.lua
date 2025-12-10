@@ -4,5 +4,9 @@ return {
 	config = true,
 	-- use opts = {} for passing setup options
 	-- this is equivalent to setup({}) function
+<<<<<<< Updated upstream
 	otps = {},
+=======
+	opts = {},
+>>>>>>> Stashed changes
 }

@@ -22,7 +22,7 @@ opt.undofile = true -- Store undos between sessions
 opt.breakindent = true -- Enable break indent
 
 -- Search charaters that don't care uppercase/lowercase
-opt.ignorecase = true 
+opt.ignorecase = true
 opt.smartcase = true
 
 opt.signcolumn = "yes" -- Keep signcolumn on by default
@@ -35,13 +35,20 @@ vim.opt.scrolloff = 10 -- Minimal number of screen lines to keep above and below
 
 -- Highlight text for some time after yanking
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = vim.api.nvim_create_augroup("YankHighLight", {clear= true}),
-  pattern = "*",
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  desc = "Highlight yank",
+	group = vim.api.nvim_create_augroup("YankHighLight", { clear = true }),
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	desc = "Highlight yank",
 })
 
 -- Disable commandline until it is needed
 opt.cmdheight = 0
+
+-- FOLD
+opt.foldmethod = "manual"
+opt.foldcolumn = "1"
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true
