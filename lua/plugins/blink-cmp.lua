@@ -31,12 +31,8 @@ return {
 			["<UP>"] = { "select_prev", "fallback" },
 			["<C-j>"] = { "select_next", "fallback" }, -- DOWN
 			["<DOWN>"] = { "select_next", "fallback" },
-<<<<<<< Updated upstream
 			["<C-n>"] = { "show_signature", "hide_signature", "fallback" },
-=======
-
 			["<Tab>"] = { "snippet_forward" },
->>>>>>> Stashed changes
 		},
 
 		appearance = {
