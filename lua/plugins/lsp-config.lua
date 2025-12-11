@@ -224,6 +224,7 @@ return {
 			-- But for many setups, the LSP (`ts_ls`) will work just fine
 			-- ts_ls = {},
 			--
+			ts_ls = require("lsp.servers.ts_ls"),
 			bashls = require("lsp.servers.bash_ls"),
 			lua_ls = require("lsp.servers.lua_ls"),
 			clangd = {},

@@ -17,7 +17,7 @@ keymaps("n", "<leader>sh", "<C-w>s", { desc = "Split windows by horizon" })
 keymaps("n", "<leader>wx", ":close<CR>", { desc = "Close windows" })
 
 keymaps("n", "<leader>wh", "<C-w>h", { desc = "Go to the left window" })
-keymaps("n", "<leader>wl", "<C-w>h", { desc = "Go to the right window" })
+keymaps("n", "<leader>wl", "<C-w>l", { desc = "Go to the right window" })
 keymaps("n", "<leader>wj", "<C-w>j", { desc = "Go to the down window" })
 keymaps("n", "<leader>wk", "<C-w>k", { desc = "Go to the up window" })
 

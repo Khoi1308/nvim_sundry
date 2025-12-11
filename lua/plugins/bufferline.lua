@@ -56,5 +56,8 @@ return {
 				-- fill = {},
 			},
 		})
+
+		vim.keymap.set("n", "<leader>bx", ":bdelete<CR>", { desc = "Close buffer" })
+		vim.keymap.set("n", "<leader>bd", ":BufferLineCloseOthers<CR>", { desc = "[D]elete All [B]uffer" })
 	end,
 }
