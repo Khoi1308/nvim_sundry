@@ -1,0 +1,33 @@
+- As you can see on the right, in case of Docker, we have the underlying hardware, infrastructure and then the OS and then Docker installed on the OS. Docker then manages the containers that run with libraries and dependencis alone. In case of VMs, we have the hypervisor like ESX on the hardware, and then the VMs on them. As you can see, each VM has its own OS inside it. Then dependencies and then the application
+- The overhead causes higher utilization of underlying resources as there are multiple Virtual Operating Systems and kernel running. The VMs also consumeed higher disk space, as each VM is heavy, and is usually in GBs in size, whereas Docker containers are lightweight and are usually in Mbs in size. This allows Docker containers to boot up faster, usually in a matter of seconds, wheas VMs as we know, takes minutes to boot up as it needs to boot up the entire OS. It's also important to note that Docker has less isolation as more resources, are shared between the containers like kernels, whereas VMs have complete isolation from each other. Since VMs don't rely on the underlying OS or kernel, you can run different types of applications built on different services such as Linux based or Windows based app on the same hypervisor.
+- Now, having said that, it's not an either container or VM situation. Its containers and VMs. Now, when you have large environments with 1000s of application containers running on 1000s of Docker host, you will often see containers provisioned on Virtual Docker hosts. That way, we can utilize the advantages of both technologies, we can use the benefits of virtualization, to easily provision or decommision Docker hosts, as required, at the same time make use of the benefits of Docker to easily provision applications and quickly scale them as required. But remember that in this case, we will not be provisioning that many virtual machines as we used to before, because earlier, we provisioned a VM for each application. Now, you might provision a VM for 100s or 1000s of containers. SO how is it done? There are lots of containerized versions of applications readily available as of today. So most organizations have their products contianerized and available in a public Docker repository called Docker Hub or Docker store. 
+
+## Container & Image
+- And IMAGE is a package or a template (just like a VM template that you might have worked within the virtualization world), it is used to create on or more containers. Containers are running instances if Images that are isolated and have their own environments and set of processees. As we have seen before, a lot of products have been dockerized already, in case you can't find what you're looking for. You could create your own Image and push it to Docker hub repository, making it available for public. 
+- So if you look at it, traditionally, developers developed applications, then they hand it over to operations (Ops) team to deploy and manage it in productive environments. They do that by providing a set of instruction such as information about how the host must be set up, what reprequisites are to be installed on the host, and how the dependencies are to be configured, etc. Since the devops team did not really develop the application on their own, they struggle with setting it up. 
+- When they hit an issue, they works with developers to resolve it. With Docker, developers and operations teams work hand in hand to transform the guide into a Docker file with both of their requitements. This Docker file is then used to create an Image for their applications. This Image can now run on any host with Docker installed on it, and is guaranteed to run the same way everywhere. So the Ops team can now simply use the Image to deploy the application. Since the Image was already working, when the developer built it, and operations are have not modified it. It continues to work the same way when deployed in production.
+## Docker
+- Docker has 2 Editions: Community & Enterprise
+ + Enterprise Edition is the certified and supported container platform that comes with enterprise add ons like the Image management, Image security, universal control plane for managing and orchestrating container runtimes. We will discuss more about container orchestration later in this course, and along with some alternatives 
+ + Community Edition: I knew that
+
+## Docker command
+1. run - start a container
+2. ps - list containers
+ + docker ps       -- List all running container
+ + docker ps -a    -- List all running or not container
+3. stop - stop a container
+ + docker stop <container_name>
+4. rm - remove a container
+
+
+
+
+
+
+
+
+
+
+
+
