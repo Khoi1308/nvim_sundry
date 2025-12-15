@@ -14,13 +14,20 @@
 ## Docker command
 1. run - start a container
 2. ps - list containers
- + docker ps       -- List all running container
- + docker ps -a    -- List all running or not container
+ + docker ps                                     -- List all running container
+ + docker ps -a                                  -- List all running or not container
 3. stop - stop a container
  + docker stop <container_name>
 4. rm - remove a container
-
-
+ + docker rm <container_name>
+5. images - list images
+6. rmi - remove images
+ + docker rmi <image_name>
+7. pull - download an image
+ + docker run <image_name>
+ + docker pull <image_name>                      -- Pull docker image but not run container
+8. exec - execute a command
+ + docker exec <container_name> <command_line>   -- Run command line in RUNNING container
 
 
 
