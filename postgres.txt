@@ -1,0 +1,3 @@
+# PostgreSQL system architechture
+- In database jargon, PostgreSQL uses a Client/Server model. A PostgreSQL session consists of the following cooperation processes (programs):
+ + A server process, which the database files, accepts connections to the database from client applications, and performs database actions on behalf of the clients. The database server program is called postgres
