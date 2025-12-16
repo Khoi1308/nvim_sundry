@@ -24,10 +24,16 @@
 6. rmi - remove images
  + docker rmi <image_name>
 7. pull - download an image
- + docker run <image_name>
+ + docker run <image_name:tag>
  + docker pull <image_name>                      -- Pull docker image but not run container
 8. exec - execute a command
  + docker exec <container_name> <command_line>   -- Run command line in RUNNING container
+9. run - attach & detach
+ + docker run -d <image_name>
+- When you run a Docker - run command like this, it runs in the foreground or in an attached mode, meaning you will be attached to the console or the standard out of the Docker container. And you will see the output of the web service on your screen. You won't be able to do anything else on this console other than view the output until this Docker container stops. It won't respond to your inputs. Another options is to run the Docker container in the detached mode by providing the slash d option. This will run the Docker container in the background mode, and you will be back to your prompt immediately. The container will continue to run in the BE. 
+ + docker attach <container_ID>
+- Now if you would like to attach back to the running container later, run the docker attach command and specify the name or ID of the Docker container. Now remember, if you're specifying the ID of a container in any Docker command, you can simply provide the first few characters alone 
+10. run - interactive & terminal modes
 
 
 
