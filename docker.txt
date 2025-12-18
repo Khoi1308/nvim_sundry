@@ -49,8 +49,17 @@
 ## Volume mapping
 Let's now look at how data is persisted in Docker container? When databases and tables are created, the data files are stored in location /var/lib/postgresql/18/ inside the Docker container. Remember, the Docker container has its own isolated file system, and any changes to any files happen within the Docker container. Let's assume you dump a lot of data into the database. What happens if you were delete the PostgreSQL container and remove it? Container along with all the data inside it gets blown away.
 
-If you would like to persisted data, you would want to map a directory outside the container on the Docker host to a directory inside the container.
+If you would like to persisted data, you would want to map a directory outside the container on the Docker host to a directory inside the Docker container.
  + docker run -v <directory_on_host>:<directory_in_contrianer> <image_name>:<tag>
+
+This way when Docker container runs, it will implicitly mount the external directory to a folder inside Docker container. This way all your data will now be stored in the external volume
+
+If you'd like to see additional details about a specific container, 
+ + docker inspect <container_name>
+ it returns all details of a container in a JSON format, such as the state mounts, configuration data, network settings, etc.
+
+ + docker run -e <command_line> <images_name>
+ to set an environment variable within the container. To find the environment variable set on a container that's already running, use Docker inspect command to inspect the properties of a running container. 
 
 # DOCKER IMAGES
 Why would you need to create your own image? 
