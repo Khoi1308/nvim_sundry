@@ -76,6 +76,7 @@ If you'd like to see additional details about a specific container,
   - Once done, build your image using the Docker buid command and specify the Dockerfile as input as well as a tag name for the image. This will create an image locally on your system.
    + docker build Dockerfile -t <account_name>/<image_name> (2)
    + docker push <account_name>/<image_name>
+   + Typically, image_name is named according to this format: [Register_URL]/[Project_name]/[Service_name]:[Version_tag]
 
  - To make it available on the Docker Hub register, run the Docker push command an specify the name of the image you just created. 
 
@@ -143,8 +144,18 @@ If you'd like to see additional details about a specific container,
 
 # DOCKER COMPOSE
  - Going forward, we will be working with configurations in yaml file, so it is important that you are comfortable with yaml. Let's recap a few things real quick, because we first learned how to run Docker container using the Docker run command. If we needed to setup a complex application running multiple services, a better way to do it is to use Docker compose. With Docker compose, we could create a configuration file in yaml format called docker-compose.yaml and put together the different services and options specific to this to running them in this file. 
- - Then we could simply run a Docker compose up command to bring up the entire application stack is easier to implement, run and maintain as all changes are always stored in the Docker compose configuration file. However, this is all only applicable to running containers on a single Docker host. And for now, don't worry about the yaml file, we will take a closer look at the yaml file in a bit and see how to put it together. That was a really simple application that I put together. Let us look at a better example, i'm going to use the same sample application that everyone uses to demonstrate Docker. It's a simple yet comprehensive application developed 
+ - Then we could simply run a Docker compose up command to bring up the entire application stack is easier to implement, run and maintain as all changes are always stored in the Docker compose configuration file. However, this is all only applicable to running containers on a single Docker host. And for now, don't worry about the yaml file, we will take a closer look at the yaml file in a bit and see how to put it together. That was a really simple application that I put together. Let us look at a better example, i'm going to use the same sample application that everyone uses to demonstrate Docker. It's a simple yet comprehensive application developed
+ - Generate docker-compose file:
+   + Once we have the Docker run commands tested and ready, it is easy to generate a Docker compose file from it. We start by creating a dictionary of container names, we will use the same name we used in the Docker run commands. So we take all the names and create a key with each of them 
+   + Then under each item, we specify which image to use. The key is image: [image_name] [1]
+   + Next, inspect the commands and see what are the other options used, let's move those ports under the respective containers. 
+   + Next, we are left with links. 
+   + Finally use run docker-compose up command to bring up the entire application stack.
+ - If we would like to instruct docker-compose to run a docker build, instead of trying to pull a image, we can replace the image line [1] with a built line and specify the location of a directory, which contains the application code, and a Docker file with instructions to build the Docker Image
+ 
+ - Back in our docker-compose file, note that I have actually stripped out the port section for simplicity's sake, there's still there, but they're just not shown here. The first thing we need to do if we're to use networks is to define the networks we're going to use. In our case, we have 2 networks: front-end, and back-end.- So create a new property called networks at the root level, and listen the services in the docker-compose file, and add a map of networks we're planning to use. Then under each service, create a network's property and provide a list of networks that service must be attached to. In case of Redis and DB, it's only the back-end network. In case of the front-end applications such as voting app and the result app, they're required to be a test to both a front-end and a back-end network.
+ - You must also add section for worker container to be added to the back-end network. I have just omitted that in this slide due to space constrainets. Now that you have seen docker-compose file, head over to the coding exercises and practice developing some docker-compose file 
 
 
-k
+
 

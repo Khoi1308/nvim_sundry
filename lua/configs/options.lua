@@ -20,6 +20,8 @@ opt.autoindent = true -- Keep identation from previous line
 
 opt.undofile = true -- Store undos between sessions
 opt.breakindent = true -- Enable break indent
+opt.linebreak = true
+opt.wrap = true
 
 -- Search charaters that don't care uppercase/lowercase
 opt.ignorecase = true
