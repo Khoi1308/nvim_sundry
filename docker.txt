@@ -14,7 +14,7 @@
 
 ## Docker command
 1. run - start a container
-2. ps - list containers
+2. ps - list containers (7)
  + docker ps                                     -- List all running container
  + docker ps -a                                  -- List all running or not container
 3. stop - stop a container
@@ -115,7 +115,7 @@ If you'd like to see additional details about a specific container,
 
  ## User-defined networks
   We just saw the default burst network where the network ID 172.70.0.1. So all containers associated to this default network will be able to communicate to each other. But what if we wish to isolate the containers within the Docker host, for example, 1st-2nd web containers on internal network 172 and the second 2 containers on a different internal network, like 182. By default, Docker only creates 1 internal Bridge network, we could create our own internal network using the command Docker network, create and specify the driver which is bridge in this case, and the subnet of that network followed by the custom isolated network name
-     + docker network create --driver bridge --subnet 182.18.0.0/16 [network_name] 
+     + docker network create --driver bridge --subnet 182.18.0.0/16 [network_name] (6)
      + docker network ls   // list all networks
      + See the network settings and the IP address assigned to an existing container run command (1)
  ## Embedded DNS
@@ -144,6 +144,24 @@ If you'd like to see additional details about a specific container,
 
 # DOCKER COMPOSE
  - Going forward, we will be working with configurations in yaml file, so it is important that you are comfortable with yaml. Let's recap a few things real quick, because we first learned how to run Docker container using the Docker run command. If we needed to setup a complex application running multiple services, a better way to do it is to use Docker compose. With Docker compose, we could create a configuration file in yaml format called docker-compose.yaml and put together the different services and options specific to this to running them in this file. 
+
+ - So let's first get familiarized with the application, because we will be working with the same application in different sections though the rest of this course. 
+   + This is a sample voting application which provides an interface for a user to vote and another interface to show the results. The application consists of various components such as the voting app
+     . voting-app, which is a web application developed in Python, to provide the user with an interface to choose between 2 options (Cats or Dogs)
+     . When you make a selection, the vote is stored in Redis. For those of you, who are new to Redis, in this case serves as a database in memory
+     . This vote is then processed by the worker which is an application written in .NET. 
+     . The worker application takes the new vote and updates the persistent database, which is PostgreSQL
+     . The vote is displayed in a web interface, which is another web application developed in NodeJS. This resulting application rates the count of votes from Postgres database an display it to the user
+   + So that is the architechture and data flow of this simple voting application stack.
+ - If you run manually all the container by use docker run -d command, we will see that all the instances are running on the host. But there is some problem, it just doesn't seem to work. The problem is that we have successfully run all different containers, but we haven't actually linked together. As in 
+   + We haven't told the voting web application to use this particular Redis instance, there could be multiple Redis instance running
+   + We haven't told the worker and the resulting app to use this particular Postgres that we ran
+ - So how do we do that? That is where we use links. Link is a command line option, which can be used to link 2 containers together
+   + For example, the voting-app webservice is dependent on the Redis service. When the web server starts, as you can see, in this piece of code on the web server, it looks for a Redis service running on host Redis. But the voting-app container cannot resolve a host by the name Redis. To make the voting-app aware of the Redis service, we add a link option while running the voting-app container to link it to the Redis container,adding a
+     . docker run -d --name=[new_container_name] [port_docker_host]:[port_container] --link [container_name_link]:[new_container_link] [image_name]
+     . The above command is deprecated, you can use network command instead. Firt you create Network use this command (6), then run the containers that you want to link together use --network [network_name] [image_name]
+   + What this is in fact doing is? it creates an entry into the etc host file on the voting-app container, adding an entry with the host name "redis" with the internal IP of the Redis container. Similarily, we add a link for the result-app to communicate with the database by adding a link option to refer the database by the name "db"
+
  - Then we could simply run a Docker compose up command to bring up the entire application stack is easier to implement, run and maintain as all changes are always stored in the Docker compose configuration file. However, this is all only applicable to running containers on a single Docker host. And for now, don't worry about the yaml file, we will take a closer look at the yaml file in a bit and see how to put it together. That was a really simple application that I put together. Let us look at a better example, i'm going to use the same sample application that everyone uses to demonstrate Docker. It's a simple yet comprehensive application developed
  - Generate docker-compose file:
    + Once we have the Docker run commands tested and ready, it is easy to generate a Docker compose file from it. We start by creating a dictionary of container names, we will use the same name we used in the Docker run commands. So we take all the names and create a key with each of them 
@@ -153,9 +171,28 @@ If you'd like to see additional details about a specific container,
    + Finally use run docker-compose up command to bring up the entire application stack.
  - If we would like to instruct docker-compose to run a docker build, instead of trying to pull a image, we can replace the image line [1] with a built line and specify the location of a directory, which contains the application code, and a Docker file with instructions to build the Docker Image
  
- - Back in our docker-compose file, note that I have actually stripped out the port section for simplicity's sake, there's still there, but they're just not shown here. The first thing we need to do if we're to use networks is to define the networks we're going to use. In our case, we have 2 networks: front-end, and back-end.- So create a new property called networks at the root level, and listen the services in the docker-compose file, and add a map of networks we're planning to use. Then under each service, create a network's property and provide a list of networks that service must be attached to. In case of Redis and DB, it's only the back-end network. In case of the front-end applications such as voting app and the result app, they're required to be a test to both a front-end and a back-end network.
+ - Back in our docker-compose file, note that I have actually stripped out the port section for simplicity's sake, there's still there, but they're just not shown here. The first thing we need to do if we're to use networks is to define the networks we're going to use. In our case, we have 2 networks: front-end, and back-end.
+ - So create a new property called networks at the root level, and listen the services in the docker-compose file, and add a map of networks we're planning to use. Then under each service, create a network's property and provide a list of networks that service must be attached to. In case of Redis and DB, it's only the back-end network. In case of the front-end applications such as voting app and the result app, they're required to be a test to both a front-end and a back-end network.
  - You must also add section for worker container to be added to the back-end network. I have just omitted that in this slide due to space constrainets. Now that you have seen docker-compose file, head over to the coding exercises and practice developing some docker-compose file 
 
+# DOCKER REGISTRY
+  - Docker registry, Github container registry, harbor
+
+# DOCKER ENGINE
+  - How it actually runs applications in isolated containers? How it works under the hood?
+  - Docker engine as we have learned before you simply refer to a host with Docker installed on it. When you install Docker on a Linux host, you're actually installing 3 different component: Docker Deamon, Rest API, Docker CLI
+    + Docker Deamon is background process that manages Docker object such as Images, Containers, Volumes and Networks
+    + Docker Rest API server is the API interface that programs can use to talk to the Deamon and provide instructions. You could create your own tools using this Rest API.
+    + Docker CLI is nothing but the command line interface that we're been using, until now to perform actions such as running a containers, stopping containers, destroying images, etc. It uses the Rest API to interact with the Docker Deamon.
+  - Something to note here is that the Docker CLI need not necessarily be on the same host. It could be on another system like a laptop, and can still worl with a remote Docker engine
+    + To run container outside localhost: docker -H=remote-docker-engine_address:[PORT] [image_name]
+  - Now let's try and understand how exactly our applications containerized in Docker? How does it work under the hood? Docker use namespaces to isolate workspace: process IDs, Network, Inter process communication, Mount, Unix timesharing systems are created in their own namespace, thereby providing isolation between containers. 
+  - Let's take a look at one of the namespace isolation technique
+## Namespace - PID
+  - Whenever a Linux system boots up, it starts with just 1 process with a process ID of one. This is the root process and kicks off all the other processes in the system.
+  - By the time, the system boots up completely, we have a handful of processes running. This can be seen by running, the command (7) to list all the running processes. The process IDs are unique and 2 processes cannot have the same process ID
+  - Now if we were to create a container, which is basically like a child system within the current system, the child system needs to think that it is an independent system on its own. And it has its own set of processes originating from a root process with a process ID of one
+  - But we know there is no hard isolation between the containers and the underlying host. So the processes running inside the containerare in fact processes running on the underlying host.
 
 
 
